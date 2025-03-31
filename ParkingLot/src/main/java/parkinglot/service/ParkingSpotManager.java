@@ -4,6 +4,7 @@ import parkinglot.model.ParkStrategy;
 import parkinglot.model.Vehicle;
 import parkinglot.model.VehicleType;
 import parkinglot.service.spot.ParkingSpot;
+import parkinglot.service.exception.SpotNotFoundException;
 
 import java.util.List;
 
@@ -39,8 +40,11 @@ public class ParkingSpotManager {
         }
         return parkingSpotStrategy.findParkingSpot(parkingSpots, vehicleType);
     }
-    public ParkingSpot park(Vehicle vehicle, ParkStrategy parkStrategy) {
+    public ParkingSpot park(Vehicle vehicle, ParkStrategy parkStrategy) throws SpotNotFoundException {
         ParkingSpot parkingSpot=findParkingSpot(parkStrategy, vehicle.getType());
+        if(parkingSpot==null){
+            throw new SpotNotFoundException("Space not available for "+ vehicle.getType().toString());
+        }
         parkingSpot.park(vehicle);
         return parkingSpot;
     }
