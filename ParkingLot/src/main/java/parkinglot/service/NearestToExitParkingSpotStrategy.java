@@ -6,15 +6,18 @@ import parkinglot.service.spot.ParkingSpot;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 public class NearestToExitParkingSpotStrategy implements ParkingSpotStrategy, Comparator<ParkingSpot> {
 
     @Override
-    public ParkingSpot findParkingSpot(List<ParkingSpot> parkingSpots, VehicleType vehicleType) {
-        parkingSpots.sort(this);
-        for (ParkingSpot parkingSpot : parkingSpots) {
-            if (parkingSpot.getVehicleType().equals(vehicleType) && parkingSpot.isEmpty()) {
-                return parkingSpot;
+    public ParkingSpot findParkingSpot(Map<Integer, List<ParkingSpot>> floorWiseParkingSpots, VehicleType vehicleType) {
+        for(Map.Entry<Integer, List<ParkingSpot>> parkingSpots: floorWiseParkingSpots.entrySet() ) {
+            parkingSpots.getValue().sort(this);
+            for (ParkingSpot parkingSpot : parkingSpots.getValue()) {
+                if (parkingSpot.getVehicleType().equals(vehicleType) && parkingSpot.isEmpty()) {
+                    return parkingSpot;
+                }
             }
         }
         return null;

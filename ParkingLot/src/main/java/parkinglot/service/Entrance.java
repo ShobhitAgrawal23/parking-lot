@@ -4,14 +4,15 @@ import parkinglot.model.ParkStrategy;
 import parkinglot.model.Ticket;
 import parkinglot.model.Vehicle;
 import parkinglot.model.VehicleType;
-import parkinglot.service.spot.ParkingSpot;
 
 import java.math.BigDecimal;
 
 public class Entrance {
+    private int id;
     private final ParkingSpotManager parkingSpotManager;
 
-    public Entrance() {
+    public Entrance(int id) {
+        this.id=id;
         parkingSpotManager=ParkingSpotManager.getInstance();
     }
 
@@ -30,10 +31,8 @@ public class Entrance {
     public boolean isParkingSpotAvailable(VehicleType vehicleType) {
         return parkingSpotManager.parkingSpotAvailable(vehicleType);
     }
-
-
-
-
-
+    public int getId() {
+        return id;
+    }
 
 }

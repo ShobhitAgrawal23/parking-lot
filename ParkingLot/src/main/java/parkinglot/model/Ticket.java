@@ -8,18 +8,22 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Ticket {
-    private UUID id;
+    private String id;
     private BigDecimal price;
     private OffsetDateTime entryTime;
     private Vehicle vehicle;
     private ParkingSpot parkingSpot;
 
     public Ticket(Builder builder) {
-        id = UUID.randomUUID();
+        id = UUID.randomUUID().toString();
         entryTime = OffsetDateTime.now();
         price = builder.price;
         vehicle = builder.vehicle;
         parkingSpot = builder.parkingSpot;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
     }
 
     public static class Builder {
