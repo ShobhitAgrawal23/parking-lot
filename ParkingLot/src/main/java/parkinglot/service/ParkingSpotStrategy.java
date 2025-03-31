@@ -4,7 +4,8 @@ import parkinglot.model.VehicleType;
 import parkinglot.service.spot.ParkingSpot;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ParkingSpotStrategy {
-    ParkingSpot findParkingSpot(List<ParkingSpot> parkingSpot, VehicleType vehicleType);
+    ParkingSpot findParkingSpot(Map<Integer, List<ParkingSpot>> floorWiseParkingSpots, VehicleType vehicleType);
 }
