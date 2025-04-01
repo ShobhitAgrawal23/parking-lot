@@ -2,32 +2,32 @@ package parkinglot.model;
 
 import parkinglot.service.spot.ParkingSpot;
 
-import java.math.BigDecimal;
+
 import java.time.OffsetDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 public class Ticket {
     private String id;
-    private BigDecimal price;
     private OffsetDateTime entryTime;
-    private Vehicle vehicle;
     private ParkingSpot parkingSpot;
+    private Vehicle vehicle;
 
     public Ticket(Builder builder) {
         id = UUID.randomUUID().toString();
         entryTime = OffsetDateTime.now();
-        price = builder.price;
         vehicle = builder.vehicle;
         parkingSpot = builder.parkingSpot;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public OffsetDateTime getEntryTime() {
+        return entryTime;
     }
 
     public static class Builder {
-        private BigDecimal price;
         private Vehicle vehicle;
         private ParkingSpot parkingSpot;
 
@@ -37,11 +37,6 @@ public class Ticket {
         }
 
         private Builder() {}
-
-        public Builder setPrice(BigDecimal price) {
-            this.price = price;
-            return this;
-        }
 
         public Builder setVehicle(Vehicle vehicle) {
             this.vehicle = vehicle;

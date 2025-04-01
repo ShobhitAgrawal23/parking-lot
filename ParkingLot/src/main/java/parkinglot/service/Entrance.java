@@ -24,7 +24,6 @@ public class Entrance {
         return Ticket.Builder.newInstance()
                 .setVehicle(vehicle)
                 .setParkingSpot(parkingSpotManager.park(vehicle, strategy))
-                .setPrice(new BigDecimal(10))
                 .build();
     }
 

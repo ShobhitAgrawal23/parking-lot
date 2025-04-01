@@ -1,6 +1,7 @@
 package parkinglot;
 
 import parkinglot.model.ParkStrategy;
+import parkinglot.model.PayStrategy;
 import parkinglot.model.Ticket;
 import parkinglot.model.VehicleType;
 import parkinglot.service.Entrance;
@@ -51,7 +52,7 @@ public class Main {
 
         Exit exit= new Exit(1);
         if(ticket2!=null){
-            BigDecimal bigDecimal = exit.calculateCostAndUnPark(ticket2);
+            BigDecimal bigDecimal = exit.calculateCostAndUnPark(ticket2, PayStrategy.HOUR_BASED);
             System.out.println("Parking cost:"+bigDecimal);
         }
 
