@@ -1,5 +1,7 @@
 package parkinglot.service;
 
+import parkinglot.model.ParkStrategy;
+import parkinglot.model.PayStrategy;
 import parkinglot.model.Ticket;
 
 import java.math.BigDecimal;
@@ -14,9 +16,21 @@ public class Exit {
         parkingSpotManager=ParkingSpotManager.getInstance();
     }
 
-    public BigDecimal calculateCostAndUnPark(Ticket ticket) {
+    public BigDecimal calculateCostAndUnPark(Ticket ticket, PayStrategy payStrategy) {
         parkingSpotManager.unPark(ticket.getParkingSpot());
-        return ticket.getPrice();
+        PaymentStrategy paymentStrategy= getPaymentStrategy(payStrategy);
+        return paymentStrategy.calculatePayment(ticket);
+    }
+
+    private PaymentStrategy getPaymentStrategy(PayStrategy parkStrategy) {
+        switch (parkStrategy) {
+            case DAY_BASED -> {
+                return new DayBasedPaymentStrategy();
+            }
+            default -> {
+                return new HourBasedPaymentStrategy();
+            }
+        }
     }
 
     public void setTicket(Ticket ticket) {
